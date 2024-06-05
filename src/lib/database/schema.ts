@@ -31,6 +31,7 @@ export const roleTable = pgTable("role", {
 export const permissionTable = pgTable("permission", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
+  module: text("module").notNull(),
 });
 
 export const rolePermissionTable = pgTable("role_permission", {
