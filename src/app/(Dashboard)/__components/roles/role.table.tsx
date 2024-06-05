@@ -26,6 +26,7 @@ export default function RoleTable({
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [idToAction, setIdToAction] = useState<string | null>(null);
+  const [loadingDelete, setLoadingDelete] = useState(false);
 
   const column: ColumnDef<TRole>[] = [
     {
@@ -99,6 +100,7 @@ export default function RoleTable({
   ];
 
   const handleDelete = async () => {
+    setLoadingDelete(true);
     const res = await deleteRole(idToAction!);
     if (!res.success) {
       toast({
@@ -112,6 +114,7 @@ export default function RoleTable({
       });
       setOpenDelete(false);
       setIdToAction(null);
+      setLoadingDelete(false);
     }
   };
 
@@ -149,7 +152,7 @@ export default function RoleTable({
         setOpen={setOpenDelete}
         title="Role"
         handleDelete={handleDelete}
-        loading={false}
+        loading={loadingDelete}
         resetId={() => setIdToAction(null)}
       />
     </>
