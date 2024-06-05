@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push:pg",
+    "db:generate": "drizzle-kit generate:pg",
     "db:studio": "drizzle-kit studio",
     "start:prod": "NODE_ENV=production next start",
     "build:prod": "NODE_ENV=production next build"
