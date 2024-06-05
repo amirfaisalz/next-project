@@ -67,11 +67,12 @@ export default function RoleForm({
         variant: "default",
         description: res.message,
       });
+    }
 
-      setOpen(false);
-      if (resetId) {
-        resetId();
-      }
+    setOpen(false);
+    form.setValue("name", "");
+    if (resetId) {
+      resetId();
     }
   }
 

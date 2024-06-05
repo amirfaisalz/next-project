@@ -11,6 +11,11 @@ export const getRoleByIdService = async (id: string) =>
     where: eq(roleTable.id, id),
   });
 
+export const getRoleByNameService = async (name: string) =>
+  await db.query.roleTable.findFirst({
+    where: eq(roleTable.name, name),
+  });
+
 export const createRoleService = async (values: { id: string; name: string }) =>
   await db
     .insert(roleTable)
