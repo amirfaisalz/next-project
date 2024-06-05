@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 import { lucia, validateRequest } from "@/lib/lucia";
 import { SignInSchema, SignUpSchema } from "@/types/auth";
-import { getRoleByName } from "@/lib/services/auth.service";
+import { getRoleByNameService } from "@/lib/services/role.service";
 import { createUser, getUserByEmail } from "@/lib/services/user.service";
 
 export const signUp = async (values: z.infer<typeof SignUpSchema>) => {
@@ -16,7 +16,15 @@ export const signUp = async (values: z.infer<typeof SignUpSchema>) => {
     const userId = generateId(15);
 
     // Retrieve the ID of the "student" role
-    const studentRole = await getRoleByName("STUDENT");
+    const studentRole = await getRoleByNameService("STUDENT");
+
+    if (!studentRole) {
+      return {
+        success: false,
+        data: null,
+        message: "Student role doesn't exist",
+      };
+    }
 
     // create user
     await createUser({
