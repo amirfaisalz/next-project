@@ -10,6 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -76,13 +77,12 @@ export default function PermissionForm({
         variant: "default",
         description: res.message,
       });
-    }
-
-    setOpen(false);
-    form.setValue("name", "");
-    form.setValue("module", "");
-    if (resetId) {
-      resetId();
+      setOpen(false);
+      form.setValue("name", "");
+      form.setValue("module", "");
+      if (resetId) {
+        resetId();
+      }
     }
   }
 
@@ -134,7 +134,8 @@ export default function PermissionForm({
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="mt-4">
+                    <FormItem className="mt-8">
+                      <FormLabel>Permission Name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Insert Permission Name"
@@ -145,11 +146,13 @@ export default function PermissionForm({
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="module"
                   render={({ field }) => (
                     <FormItem className="mt-4">
+                      <FormLabel>Module</FormLabel>
                       <FormControl>
                         <Input placeholder="Insert Module" {...field} />
                       </FormControl>

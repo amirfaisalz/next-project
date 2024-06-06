@@ -17,6 +17,7 @@ import { DeleteDialog } from "@/components/shared/delete-dialog";
 import { DataTableRowActions } from "@/components/shared/data-table/data-table-row-actions";
 import { DataTableColumnHeader } from "@/components/shared/data-table/data-table-column-header";
 import PermissionForm from "./permission.form";
+import { deletePermission } from "@/actions/permission.action";
 
 export default function PermissionTable({
   data,
@@ -27,6 +28,7 @@ export default function PermissionTable({
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [idToAction, setIdToAction] = useState<string | null>(null);
+  const [loadingDelete, setLoadingDelete] = useState(false);
 
   const column: ColumnDef<TPermission>[] = [
     {
@@ -103,7 +105,8 @@ export default function PermissionTable({
   ];
 
   const handleDelete = async () => {
-    const res = await deleteRole(idToAction!);
+    setLoadingDelete(true);
+    const res = await deletePermission(idToAction!);
     if (!res.success) {
       toast({
         variant: "destructive",
@@ -116,6 +119,7 @@ export default function PermissionTable({
       });
       setOpenDelete(false);
       setIdToAction(null);
+      setLoadingDelete(false);
     }
   };
 
@@ -154,7 +158,7 @@ export default function PermissionTable({
         setOpen={setOpenDelete}
         title="Permission"
         handleDelete={handleDelete}
-        loading={false}
+        loading={loadingDelete}
         resetId={() => setIdToAction(null)}
       />
     </>

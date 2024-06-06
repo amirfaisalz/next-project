@@ -42,3 +42,9 @@ export const editPermissionService = async (values: {
     .returning({
       id: permissionTable.id,
     });
+
+export const deletePermissionService = async (id: string) =>
+  await db
+    .delete(permissionTable)
+    .where(eq(permissionTable.id, id))
+    .returning({ id: permissionTable.id });

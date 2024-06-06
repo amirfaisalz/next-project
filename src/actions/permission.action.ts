@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { PermissionSchema } from "@/types/permission";
 import {
   createPermissionService,
+  deletePermissionService,
   editPermissionService,
   getAllPermissionService,
   getPermissionByIdService,
@@ -100,6 +101,25 @@ export const editPermission = async ({
         newRole,
       },
       message: "Success edit permission",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      data: null,
+      message: error?.message,
+    };
+  }
+};
+
+export const deletePermission = async (id: string) => {
+  try {
+    await deletePermissionService(id);
+    revalidatePath("/permissions");
+
+    return {
+      success: true,
+      data: null,
+      message: "Success delete permission",
     };
   } catch (error: any) {
     return {
