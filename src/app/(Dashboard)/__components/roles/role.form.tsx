@@ -10,6 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -67,12 +68,11 @@ export default function RoleForm({
         variant: "default",
         description: res.message,
       });
-    }
-
-    setOpen(false);
-    form.setValue("name", "");
-    if (resetId) {
-      resetId();
+      setOpen(false);
+      form.setValue("name", "");
+      if (resetId) {
+        resetId();
+      }
     }
   }
 
@@ -120,7 +120,8 @@ export default function RoleForm({
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem className="mt-4">
+                  <FormItem className="mt-8">
+                    <FormLabel>Role Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Insert Role Name" {...field} />
                     </FormControl>
